@@ -114,7 +114,8 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  if (waitcardDetect(&rfid) == STATUS_OK){
 		  if(MFRC522_ReadUid(&rfid, uid)==STATUS_OK){
-			USER_LOG ("CARD ID:%02X %02X %02X %02X",uid[0],uid[1],uid[2],uid[3]);
+			//USER_LOG ("CARD ID:%02X %02X %02X %02X",uid[0],uid[1],uid[2],uid[3]);
+
 		  }
 		  waitcardRemoval(&rfid);
 	  }
@@ -255,24 +256,24 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, RESET_Pin|CS_Pin|GPIO_PIN_8, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, RESET_Pin|CS_Pin|led_red_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(led_yesil_GPIO_Port, led_yesil_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : RESET_Pin CS_Pin PA8 */
-  GPIO_InitStruct.Pin = RESET_Pin|CS_Pin|GPIO_PIN_8;
+  /*Configure GPIO pins : RESET_Pin CS_Pin led_red_Pin */
+  GPIO_InitStruct.Pin = RESET_Pin|CS_Pin|led_red_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PB15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  /*Configure GPIO pin : led_yesil_Pin */
+  GPIO_InitStruct.Pin = led_yesil_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(led_yesil_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
